@@ -3,7 +3,7 @@ function setHeaders(req, res, next) {
     Connection: 'keep-alive',
     'Content-Type': 'text/event-stream',
     'Cache-Control': 'no-cache, no-transform',
-    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Origin': 'https://app.kendralabs.com',
     'X-Accel-Buffering': 'no',
   });
   next();

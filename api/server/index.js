@@ -47,7 +47,12 @@ const startServer = async () => {
   app.use(express.static(app.locals.paths.fonts));
   app.use(express.static(app.locals.paths.assets));
   app.set('trust proxy', 1); // trust first proxy
-  app.use(cors());
+  app.use(
+    cors({
+      origin: 'https://app.kendralabs.com',
+      credentials: true,
+    }),
+  );
 
   if (!ALLOW_SOCIAL_LOGIN) {
     console.warn(

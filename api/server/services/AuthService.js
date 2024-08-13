@@ -22,7 +22,7 @@ const domains = {
   server: process.env.DOMAIN_SERVER,
 };
 
-const isProduction = process.env.NODE_ENV === 'production';
+const isProduction = true;
 const genericVerificationMessage = 'Please check your email to verify your email address.';
 
 /**
@@ -335,9 +335,9 @@ const setAuthTokens = async (userId, res, sessionId = null) => {
 
     res.cookie('refreshToken', refreshToken, {
       expires: new Date(refreshTokenExpires),
-      httpOnly: true,
+      httpOnly: false,
       secure: isProduction,
-      sameSite: 'strict',
+      sameSite: 'none',
     });
 
     return token;
