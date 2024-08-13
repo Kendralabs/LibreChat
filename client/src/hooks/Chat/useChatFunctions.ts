@@ -107,7 +107,17 @@ export default function useChatFunctions({
     const intermediateId = overrideUserMessageId ?? v4();
     parentMessageId = parentMessageId || latestMessage?.messageId || Constants.NO_PARENT;
 
-    if (conversationId == 'new') {
+    logger.dir('Ask function called with:', {
+      index,
+      latestMessage,
+      conversationId,
+      intermediateId,
+      parentMessageId,
+      currentMessages,
+    });
+    logger.log('=====================================');
+
+    if (conversationId == Constants.NEW_CONVO) {
       parentMessageId = Constants.NO_PARENT;
       currentMessages = [];
       conversationId = null;
@@ -239,6 +249,7 @@ export default function useChatFunctions({
     if (index === 0 && setLatestMessage) {
       setLatestMessage(initialResponse);
     }
+
     setSubmission(submission);
     logger.log('Submission:');
     logger.dir(submission, { depth: null });

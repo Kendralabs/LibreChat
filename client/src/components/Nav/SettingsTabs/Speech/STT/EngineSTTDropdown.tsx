@@ -1,15 +1,23 @@
+import React from 'react';
 import { useRecoilState } from 'recoil';
 import { Dropdown } from '~/components/ui';
 import { useLocalize } from '~/hooks';
 import store from '~/store';
 
-export default function EngineSTTDropdown() {
+interface EngineSTTDropdownProps {
+  external: boolean;
+}
+
+const EngineSTTDropdown: React.FC<EngineSTTDropdownProps> = ({ external }) => {
   const localize = useLocalize();
   const [engineSTT, setEngineSTT] = useRecoilState<string>(store.engineSTT);
-  const endpointOptions = [
-    { value: 'browser', display: localize('com_nav_browser') },
-    { value: 'external', display: localize('com_nav_external') },
-  ];
+
+  const endpointOptions = external
+    ? [
+      { value: 'browser', label: localize('com_nav_browser') },
+      { value: 'external', label: localize('com_nav_external') },
+    ]
+    : [{ value: 'browser', label: localize('com_nav_browser') }];
 
   const handleSelect = (value: string) => {
     setEngineSTT(value);
@@ -22,10 +30,12 @@ export default function EngineSTTDropdown() {
         value={engineSTT}
         onChange={handleSelect}
         options={endpointOptions}
-        width={180}
-        position={'left'}
+        sizeClasses="w-[180px]"
+        anchor="bottom start"
         testId="EngineSTTDropdown"
       />
     </div>
   );
-}
+};
+
+export default EngineSTTDropdown;
